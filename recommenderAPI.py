@@ -15,13 +15,43 @@ def index():
         keyword_recommendation_list = ""
     return (
         """
-            <form action="" method="get">
-                <h2>Keyword Recommender</h2>
-                <input type="text" name="keyword">
-                <input type="submit" value="search">
-            </form>
+            <style type="text/css">
+                .wrapper {
+                    margin-top: 100px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .response-title{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    margin-right: 110px;
+                }
+                
+                .keyword-list {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                #index-title {
+                    color: #2477ad;
+                }
+            </style>
+            
+            <div class="wrapper">
+                <form id="index-page" action="" method="get">
+                    <h1 id="index-title">Keyword Recommender</h1>
+                    <input type="text" name="keyword" size="35">
+                    <input type="submit" value="search">
+                </form>
+            </div>
         """
-        + "<h4>Recommended keywords for you: </h4>"
         + keyword_recommendation_list
     )
 
@@ -66,10 +96,21 @@ def get_recommendation(input_term):
         keywords_result_list = list(df_result_trends['query'][df_result_trends['value'] >= 50])
 
         # convert the list to string (including html format tags) for response request
-        result_string = "<ul>"
+        result_string = """
+                            <div class="response-title">
+                                <h4 align="center">Recommended keywords for you: </h4>
+                            </div>
+                            <div class="keyword-list">
+                                <ul>
+                        """
+
         for keyword in keywords_result_list:
-            result_string += "<li>" + keyword + "</li>"
-        result_string += "</ul>"
+            result_string += f'<li>{keyword}</li>'
+
+        result_string += """
+                                </ul>
+                            </div>
+                         """
 
         return result_string
 
