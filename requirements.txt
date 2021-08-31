@@ -1,0 +1,3 @@
+Flask==2.0.1
+pytrends==4.7.3
+pandas~=1.3.2
