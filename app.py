@@ -95,7 +95,7 @@ def get_recommendation_trends(seed_keyword):
     try:
         # build the payload for given keyword
         pytrends = TrendReq(hl='pt-BR', tz=180)
-        pytrends.build_payload(kw_list=[seed_keyword], cat='0', timeframe='now 7-d', geo='BR-MG', gprop='')
+        pytrends.build_payload(kw_list=[seed_keyword], cat='0', timeframe='now 7-d', geo='BR', gprop='')
 
         # create initial dataframes of keywords (top and rising recommendations of google trends)
         df_top_list_related_queries = pd.DataFrame(columns=['query', 'value'])
