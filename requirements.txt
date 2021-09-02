@@ -1,3 +1,14 @@
 Flask==2.0.1
 pytrends==4.7.3
 pandas~=1.3.2
+pip~=21.2.4
+colorlog~=4.8.0
+zlib~=1.2.11
+wheel~=0.37.0
+openssl~=1.1.1k
+cryptography~=3.4.7
+py~=1.10.0
+lxml~=4.6.3
+setuptools~=52.0.0
+oauthlib~=3.1.1
+requests~=2.26.0
