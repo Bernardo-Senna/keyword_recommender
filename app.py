@@ -21,7 +21,7 @@ def index():
         # remove duplicates from result
         clean_result_string = []
         for term in result_string:
-            if term not in clean_result_string:
+            if (term not in clean_result_string) and (len(term) < 100):
                 clean_result_string.append(term)
 
         # convert the list to string (including html format tags) for response request
@@ -52,7 +52,6 @@ def index():
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
-                    align-items: center;
                 }
                 
                 .response-title{
@@ -68,6 +67,8 @@ def index():
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
+                    margin-left: 40%;
+                    margin-right: 42%;
                 }
                 
                 #index-title {
