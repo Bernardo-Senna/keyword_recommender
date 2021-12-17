@@ -1,20 +1,55 @@
 <doctype html="">
-    <title>Keyword Recommender</title>
-    <h2>Keyword Recommender</h2>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul class="flashes">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    {% from "_formhelpers.html" import render_field %}
-    <form method="post">
-       
-        {{ render_field(form.user_text) }}
-        <input type="submit" value="Search">
-    
-    </form>
+
+    <head>
+        <title>Keyword Recommender</title>
+        <link rel="icon" type="image/ico" href="{{ url_for('static', filename='favicon.ico')}}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png')}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png')}}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+    </head>
+
+    <body>
+
+        <div class="wrapper">
+
+            <h1 id="index-title">Keyword Recommender</h1>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+            {% from "_formhelpers.html" import render_field %}
+            <form method="post">
+
+                {{ render_field(form[0].user_text, class_ = "user_text") }}
+                <input type="submit" value="Search">
+
+            </form>
+        </div>
+
+        {% if form[1] and form[2] == 0 %}
+        <div class="response-title">
+            <h4>Recommended keywords for you: </h4>
+        </div>
+
+        <div class="keyword-list">
+            <ul>
+                {% for term in form[1] %}
+                <li>{{ term }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% elif form[2] == 1 %}
+        <div class="error-title ">
+            <h4>{{ form[1] }}</h4>
+        </div>
+        {% endif %}
+
+    </body>
 </doctype>

@@ -1,0 +1,46 @@
+form {
+    display: flex;
+    flex-direction: row;
+    margin-right: 40px;
+}
+
+.wrapper {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.response-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 110px;
+}
+
+.error-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.keyword-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40%;
+    margin-right: 42%;
+}
+
+.user_text {
+    width: 270px;
+    margin-right: 5px;
+}
+
+#index-title {
+    color: #2477ad;
+}
