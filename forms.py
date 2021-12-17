@@ -1,9 +1,4 @@
-from wtforms import Form, StringField, SelectField
-
+from wtforms import Form, StringField
 
 class SearchForm(Form):
-    choices = [('Artist', 'Artist'),
-               ('Album', 'Album'),
-               ('Publisher', 'Publisher')]
-    select = SelectField('Search recommend words:', choices=choices)
-    search = StringField('')
+    user_text = StringField('')

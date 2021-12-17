@@ -1,3 +1,16 @@
+from flask_table import Table, Col
+
+def get_result_list(result_string):
+    keyword_recommendation_list = """<div><ul>"""
+
+    for term in result_string:
+        keyword_recommendation_list += f'<li>{term}</li>'
+
+    keyword_recommendation_list += """</ul></div>"""
+
+    return keyword_recommendation_list
+
+
 def remove_duplicates_from_list(inputted_list: list):
     
     clean_result_string = []

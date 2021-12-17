@@ -1,6 +1,6 @@
 from flask import Flask, flash, render_template, request, redirect
-from recommendation_functions import google_trends, google_suggest
-from utility_functions import utility
+from functions.recommendation_functions import google_trends, google_suggest
+from functions.utility_functions import utility
 from forms import SearchForm
 
 # _DEFAULT_LOCATION_IDS = ["2076"]  # location ID for Brazil
@@ -12,25 +12,27 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    search = SearchForm(request.form)
-    if request.method == 'POST':
-        return search_results(search)
-    return render_template('index.html', form=search)
+    search_string = SearchForm(request.form)
+    if search_string:
+        if request.method == 'POST':
+            return search_results(search_string)
+        return render_template('index.html', form=search_string)
 
 
 @app.route('/results')
-def search_results(search):
-    results = []
-    search_string = search.data['search']
-    if search.data['search'] == '':
-        qry = db_session.query(Album)
-        results = qry.all()
-    if not results:
+def search_results(search_string):
+
+    result_string = google_trends.get_recommendation_trends(search_string) + google_suggest.get_recommendation_suggest(search_string)
+    result_string = utility.remove_duplicates_from_list(result_string)
+    result_string = utility.remove_extremely_long_terms_from_list(result_string)
+
+    if not result_string:
         flash('No results found!')
         return redirect('/')
     else:
         # display results
-        return render_template('results.html', results=results)
+        result_string = utility.get_result_list(result_string)
+        return render_template('results.html', results=result_string)
 
 
 if __name__ == '__main__':
@@ -42,12 +44,7 @@ if __name__ == '__main__':
 
 #     keyword = request.args.get("keyword", "")
 
-#     if keyword:
-#         result_string = google_trends.get_recommendation_trends(
-#             keyword) + google_suggest.get_recommendation_suggest(keyword)
-#         result_string = utility.remove_duplicates_from_list(result_string)
-#         result_string = utility.remove_extremely_long_terms_from_list(
-#             result_string)
+#     
 
 #         # convert the list to string (including html format tags) for response request
 #         keyword_recommendation_list = """
