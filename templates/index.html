@@ -9,47 +9,54 @@
     </head>
 
     <body>
+        <div class="body-content">
 
-        <div class="wrapper">
+            <div class="wrapper">
 
-            <h1 id="index-title">Keyword Recommender</h1>
+                <h1 id="index-title">Keyword Recommender</h1>
 
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class="flashes">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+
+                {% from "_formhelpers.html" import render_field %}
+                <form method="post">
+
+                    {{ render_field(form[0].user_text, class_ = "user_text") }}
+                    <input type="submit" value="Search">
+
+                </form>
+            </div>
+
+            {% if form[1] and form[2] == 0 %}
+            <div class="response-title">
+                <h4>Recommended keywords for you: </h4>
+            </div>
+
+            <div class="keyword-list">
+                <ul>
+                    {% for term in form[1] %}
+                    <li>{{ term }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% elif form[2] == 1 %}
+            <div class="error-title ">
+                <h4>{{ form[1] }}</h4>
+            </div>
             {% endif %}
-            {% endwith %}
-
-            {% from "_formhelpers.html" import render_field %}
-            <form method="post">
-
-                {{ render_field(form[0].user_text, class_ = "user_text") }}
-                <input type="submit" value="Search">
-
-            </form>
         </div>
-
-        {% if form[1] and form[2] == 0 %}
-        <div class="response-title">
-            <h4>Recommended keywords for you: </h4>
-        </div>
-
-        <div class="keyword-list">
-            <ul>
-                {% for term in form[1] %}
-                <li>{{ term }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% elif form[2] == 1 %}
-        <div class="error-title ">
-            <h4>{{ form[1] }}</h4>
-        </div>
-        {% endif %}
-
     </body>
+    <footer>
+        <p>
+            For help and suggestions:
+            <b>beolisenna+krsupport@gmail.com</b>
+        </p>
+    </footer>
 </doctype>
